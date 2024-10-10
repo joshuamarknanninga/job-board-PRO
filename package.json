@@ -1,11 +1,20 @@
 {
-  "name": "job-board-pro",
+  "name": "job-board",
   "version": "1.0.0",
-  "description": "This is a job board application that is better.",
-  "main": "index.js",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "npm --prefix server run dev",
+    "client": "npm --prefix client run start",
+    "install-all": "npm install && npm install --prefix client && npm install --prefix server",
+    "build": "npm run build --prefix client",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
-  "author": "",
-  "license": "ISC"
+  "dependencies": {
+    "concurrently": "^8.2.0"
+  }
 }
