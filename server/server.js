@@ -1,17 +1,41 @@
-// connection.js
-const mongoose = require('mongoose');
+// server.js
+const express = require('express');
+const { ApolloServer } = require('apollo-server-express');
+const typeDefs = require('./schemas/typeDefs');
+const resolvers = require('./schemas/resolvers');
+const connection = require('./config/connection');
+const { getUserFromToken } = require('./utils/auth');
+const cors = require('cors');
+require('dotenv').config();
 
-const connection = async () => {
-  try {
-    await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/jobboard', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log('MongoDB connected');
-  } catch (err) {
-    console.error(err);
-    process.exit(1);
-  }
+const startServer = async () => {
+  const app = express();
+
+  // Middleware
+  app.use(cors());
+  app.use(express.json());
+
+  // Connect to MongoDB
+  await connection();
+
+  // Apollo Server setup
+  const server = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: async ({ req }) => {
+      const token = req.headers.authorization || '';
+      const user = await getUserFromToken(token.replace('Bearer ', ''));
+      return { user };
+    },
+  });
+
+  await server.start();
+  server.applyMiddleware({ app, path: '/graphql' });
+
+  const PORT = process.env.PORT || 4000;
+  app.listen(PORT, () => {
+    console.log(`🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`);
+  });
 };
 
-module.exports = connection;
+startServer();
