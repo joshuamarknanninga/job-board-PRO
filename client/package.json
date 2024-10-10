@@ -1,11 +1,17 @@
 {
-  "name": "job-board-pro",
+  "name": "job-board-client",
   "version": "1.0.0",
-  "description": "This is a job board application that is better.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "private": true,
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.14.1",
+    "react-scripts": "5.0.1"
   },
-  "author": "",
-  "license": "ISC"
+  "scripts": {
+    "start": "PORT=3000 react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  }
 }
