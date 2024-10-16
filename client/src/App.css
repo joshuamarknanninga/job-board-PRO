@@ -1,19 +1,86 @@
-/* App.css */
+/* Global styles */
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f0f0;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-  }
-  
-  .App {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-  }
-  
-  main {
-    flex: 1;
-    padding: 20px;
-  }
-  
+/* Frame styling */
+.frame {
+  position: relative;
+  width: 800px;
+  height: 600px;
+  padding: 20px;
+  background-color: #e6d8b2;
+  border: 10px solid #8b4513;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+}
+
+.string {
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  width: 200px;
+  height: 2px;
+  background-color: #444;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+/* Corkboard styling */
+.corkboard {
+  width: 100%;
+  height: 100%;
+  background: url('corkboard.jpg') no-repeat center center;
+  background-size: cover;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  border: 2px solid #8b4513;
+  box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+/* Post-it note styles */
+.post-it {
+  width: 150px;
+  height: 150px;
+  background-color: #ffeb3b;
+  border: 1px solid #333;
+  padding: 10px;
+  margin: 20px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  position: relative;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.post-it:hover {
+  transform: scale(1.05);
+}
+
+.post-it.expanded {
+  width: 300px;
+  height: auto;
+  padding: 20px;
+  background-color: #fdd835;
+}
+
+/* Optional hanging string */
+.string::before {
+  content: "";
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  width: 1px;
+  height: 40px;
+  background-color: #444;
+  transform: translateX(-50%);
+}
